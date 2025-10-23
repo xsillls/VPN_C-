@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36127.28 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C#Menu_Test", "C#Menu_Test.csproj", "{454BCDCD-BF33-4F49-AFD4-C6B39408ADCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{754FC069-D67B-A9D7-50A1-8D1CA196D8F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{454BCDCD-BF33-4F49-AFD4-C6B39408ADCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{454BCDCD-BF33-4F49-AFD4-C6B39408ADCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{454BCDCD-BF33-4F49-AFD4-C6B39408ADCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{454BCDCD-BF33-4F49-AFD4-C6B39408ADCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0DCDDD3A-BB15-41D7-9BB4-0880F2EC3694}
+	EndGlobalSection
+EndGlobal
