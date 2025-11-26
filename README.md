@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://turbovpn.com/w/wp-content/uploads/2022/03/image-53.png" width="350">
+  <img src="https://turbovpn.com/w/wp-content/uploads/2022/03/image-53.png" width="600">
 </p>
 
 # 🤣 Turbo Project 3000
