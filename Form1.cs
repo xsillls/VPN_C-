@@ -280,7 +280,7 @@ namespace C_Menu_Test
 
         private void button5_Click(object sender, EventArgs e)
         {
-            SelectVPN("🇯🇵 Japan");
+            SelectVPN("🇯🇵 Japan"); //test
         }
 
         private void button6_Click(object sender, EventArgs e)
