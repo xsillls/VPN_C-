@@ -65,9 +65,7 @@ class BD_Clietn
         if (exists_Name != null)
             return 1;
 
-        if (false)
-        {
-        }
+       
 
         var exists_Email = users.FindOne(u => u.Email == Email_User);
         if (exists_Email != null)

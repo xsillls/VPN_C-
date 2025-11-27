@@ -214,6 +214,14 @@ namespace C_Menu_Test
             regForm.BringToFront();
             regForm.Show();
         }
+        private void SelectVPN(string countryName)
+        {
+            // Ставим текст
+            label2.Text = countryName;
+
+            // Сворачиваем / разворачиваем меню как кнопка animatedButton4
+            animatedButton4_Click_1(null, null);
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -249,5 +257,36 @@ namespace C_Menu_Test
                                      maxLength: 10f,
                                      lineWidth: 2f);
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            SelectVPN("🇸🇬 Singapore");
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            SelectVPN("🇺🇸 United States");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SelectVPN("🇳🇴 Norway");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SelectVPN("🇨🇦 Canada");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SelectVPN("🇯🇵 Japan");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SelectVPN("🇸🇪 Sweden");
+        }
+
     }
 }
