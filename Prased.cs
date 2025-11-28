@@ -104,10 +104,45 @@ namespace C_Menu_Test
         {
 
         }
+        private void panel2_Click(object sender, EventArgs e)
+        {
+            Save_Config_User config = File_User.Open_File_To_Read();
+            config.rait = "1";
+            File_User.Save_File(config);
+            targetPanel.Controls.Clear();
+            parentForm.RestorePanel2Content();
+            // Закрываем форму Login
+            this.Close();
+        }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+        private void panel3_Click(object sender, EventArgs e)
+        {
+            Save_Config_User config = File_User.Open_File_To_Read();
+            config.rait = "2";
+            File_User.Save_File(config);
+            targetPanel.Controls.Clear();
+            parentForm.RestorePanel2Content();
+            // Закрываем форму Login
+            this.Close();
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void panel4_Click(object sender, EventArgs e)
+        {
+            Save_Config_User config = File_User.Open_File_To_Read();
+            config.rait = "3";
+            File_User.Save_File(config);
+            targetPanel.Controls.Clear();
+            parentForm.RestorePanel2Content();
+          
+            this.Close();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -124,5 +159,7 @@ namespace C_Menu_Test
         {
 
         }
+
+        
     }
 }

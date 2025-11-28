@@ -8,22 +8,20 @@ namespace C_Menu_Test
 {
     public partial class Form1 : Form
     {
-        // Все переменные должны быть объявлены здесь, один раз.
-        private AnimatedButton animatedButton1;
         private bool isExpanded = false;
         private Size originalSize;
         private Timer resizeTimer;
         private int currentStep = 0;
         private int totalSteps = 20;
-        private List<Control> panel2Controls; // Для сохранения содержимого panel2
+        private List<Control> panel2Controls;
 
         public Form1()
         {
-            
             InitializeComponent();
+
             panel1.DoubleBuffered(true);
             BD_Clietn.Open_Base("User");
-            // Инициализация таймера
+
             resizeTimer = new Timer();
             resizeTimer.Interval = 10;
             resizeTimer.Tick += ResizeTimer_Tick;
@@ -32,7 +30,6 @@ namespace C_Menu_Test
 
             if (File_User.File_Exists_Seting())
                 File_User.Set_language(0);
-
 
             Color myColorWithAlpha = Color.FromArgb(24, 29, 43, 255);
             FullRain rain = new FullRain(panel2,
@@ -44,18 +41,15 @@ namespace C_Menu_Test
                                      maxLength: 10f,
                                      lineWidth: 2f);
 
-            // Сохраняем исходное содержимое panel2
             panel2Controls = new List<Control>();
             foreach (Control control in panel2.Controls)
-            {
                 panel2Controls.Add(control);
-            }
 
             if (!File_User.File_Exists())
             {
                 BD_Clietn.Close_BD();
                 panel2.Controls.Clear();
-                Login loginForm = new Login(panel2, this); // Передаём this
+                Login loginForm = new Login(panel2, this);
                 loginForm.TopLevel = false;
                 loginForm.FormBorderStyle = FormBorderStyle.None;
                 loginForm.Dock = DockStyle.Fill;
@@ -63,14 +57,9 @@ namespace C_Menu_Test
                 loginForm.BringToFront();
                 loginForm.Show();
             }
-            else
-            {
-                //string[] User_text = File_User.Open_File_To_Read();
-                //var users = BD_Clietn.GetUsers();
-                //BD_Clietn.CheckLogin(users, User_text[0], User_text[1]);
-            }
         }
 
+        // --- Перетаскивание формы ---
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HTCAPTION = 0x2;
 
@@ -89,13 +78,16 @@ namespace C_Menu_Test
             }
         }
 
+        // --- Раскрытие меню ---
         private void animatedButton4_Click_1(object sender, EventArgs e)
         {
+            // Читаем конфиг каждый раз при нажатии
+            Save_Config_User config = File_User.Open_File_To_Read();
+            ApplyVPNLevel(config.rait);
+
             if (originalSize.IsEmpty)
             {
                 originalSize = this.Size;
-
-                // Сохраняем стартовые позиции кнопок один раз
                 animatedButton2.Tag = animatedButton2.Location;
                 animatedButton3.Tag = animatedButton3.Location;
                 animatedButton4.Tag = animatedButton4.Location;
@@ -119,7 +111,6 @@ namespace C_Menu_Test
                 this.Size = new Size(newWidth, originalSize.Height);
                 panel1.Width = newWidth;
 
-                // Берём сохранённые стартовые позиции
                 Point originalLocation2 = (Point)animatedButton2.Tag;
                 Point originalLocation3 = (Point)animatedButton3.Tag;
 
@@ -127,11 +118,9 @@ namespace C_Menu_Test
                     ? (int)(200 * progress)
                     : (int)(200 * (1 - progress));
 
-                // Смещаем только кнопки 2 и 3
                 animatedButton2.Location = new Point(originalLocation2.X + offset, originalLocation2.Y);
                 animatedButton3.Location = new Point(originalLocation3.X + offset, originalLocation3.Y);
 
-                // смещение кнопки раскрытия вместе с панелью, но чуть сдвинуть внутрь
                 animatedButton4.Location = new Point(panel1.Right - animatedButton4.Width, animatedButton4.Location.Y);
 
                 panel1.Invalidate();
@@ -159,19 +148,19 @@ namespace C_Menu_Test
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            // пусто — рисовать ничего не надо
+            // пусто
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            // пусто
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
             BD_Clietn.Close_BD();
             panel2.Controls.Clear();
-            Login loginForm = new Login(panel2, this); // Передаём this
+            Login loginForm = new Login(panel2, this);
             loginForm.TopLevel = false;
             loginForm.FormBorderStyle = FormBorderStyle.None;
             loginForm.Dock = DockStyle.Fill;
@@ -180,16 +169,9 @@ namespace C_Menu_Test
             loginForm.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-
-            // Вертикальная линия
             using (Pen pen = new Pen(Color.LightGray, 2))
             {
                 g.DrawLine(pen, 162, 30, 162, 200);
@@ -198,55 +180,54 @@ namespace C_Menu_Test
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            // Очищаем текущий контент panel2
             panel2.Controls.Clear();
-
-            // Создаем контрол User, передаем panel2 как родителя и this (Form1)
             User regForm = new User(panel2, this)
             {
                 TopLevel = false,
                 FormBorderStyle = FormBorderStyle.None,
                 Dock = DockStyle.Fill
             };
-
-            // Добавляем User в panel2 и показываем
             panel2.Controls.Add(regForm);
             regForm.BringToFront();
             regForm.Show();
         }
+
         private void SelectVPN(string countryName)
         {
-            // Ставим текст
             label2.Text = countryName;
-
-            // Сворачиваем / разворачиваем меню как кнопка animatedButton4
             animatedButton4_Click_1(null, null);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            pictureBox1.Image = Properties.Resources.Logo_1_32; // картинка по умолчанию
-
-            pictureBox1.MouseEnter += (s, ev) =>
-            {
-                pictureBox1.Image = Properties.Resources.Logo_2_32;
-            };
-
-            pictureBox1.MouseLeave += (s, ev) =>
-            {
-                pictureBox1.Image = Properties.Resources.Logo_1_32;
-            };
+            pictureBox1.Image = Properties.Resources.Logo_1_32;
+            pictureBox1.MouseEnter += (s, ev) => pictureBox1.Image = Properties.Resources.Logo_2_32;
+            pictureBox1.MouseLeave += (s, ev) => pictureBox1.Image = Properties.Resources.Logo_1_32;
         }
 
-        // Метод для восстановления содержимого panel2
+        // --- Ограничение VPN по уровню ---
+        private void ApplyVPNLevel(string rait)
+        {
+            Button[] vpnButtons =
+            {
+                button7, button2, button3, button4, button5, button6
+            };
+
+            int showCount = 6;
+            if (rait == "3") showCount = 2;
+            else if (rait == "2") showCount = 4;
+            else if (rait == "1") showCount = 6;
+
+            for (int i = 0; i < vpnButtons.Length; i++)
+                vpnButtons[i].Visible = i < showCount;
+        }
+
         public void RestorePanel2Content()
         {
             panel2.Controls.Clear();
             foreach (Control control in panel2Controls)
-            {
                 panel2.Controls.Add(control);
-            }
-            // Перезапускаем FullRain, если он не сохраняется
+
             Color myColorWithAlpha = Color.FromArgb(24, 29, 43, 255);
             FullRain rain = new FullRain(panel2,
                                      dropCount: 100,
@@ -258,35 +239,11 @@ namespace C_Menu_Test
                                      lineWidth: 2f);
         }
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            SelectVPN("🇸🇬 Singapore");
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            SelectVPN("🇺🇸 United States");
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            SelectVPN("🇳🇴 Norway");
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            SelectVPN("🇨🇦 Canada");
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            SelectVPN("🇯🇵 Japan"); //test
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            SelectVPN("🇸🇪 Sweden");
-        }
-
+        private void button7_Click(object sender, EventArgs e) => SelectVPN("🇸🇬 Singapore");
+        private void button2_Click_1(object sender, EventArgs e) => SelectVPN("🇺🇸 United States");
+        private void button3_Click(object sender, EventArgs e) => SelectVPN("🇳🇴 Norway");
+        private void button4_Click(object sender, EventArgs e) => SelectVPN("🇨🇦 Canada");
+        private void button5_Click(object sender, EventArgs e) => SelectVPN("🇯🇵 Japan");
+        private void button6_Click(object sender, EventArgs e) => SelectVPN("🇸🇪 Sweden");
     }
 }
